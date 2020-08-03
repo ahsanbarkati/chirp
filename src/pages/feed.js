@@ -7,6 +7,7 @@ import Content from '../components/content';
 import { Navigbar, NavbarItem } from '../components/navbar';
 import { CenteredCard } from '../components/card';
 import { Search } from "../components/search";
+import { Create } from "../components/create";
 
 const query = gql`
   query {
@@ -28,7 +29,8 @@ const Home = () => {
   return <>
     <Navigbar title="Feed" color="primary" />
     <Content>
-      {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null}
+      {/* {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null} */}
+      {!loading && !error ? <Create data={data.queryUser.name || []} label="Chirp now" onChange={handleClick} />: null}
       <TypesList loading={loading} error={error} data={data} />
     </Content>
   </>

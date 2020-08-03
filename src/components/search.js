@@ -2,6 +2,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 
 export function Search({ data, label, onChange }) {
   return (
@@ -15,6 +17,12 @@ export function Search({ data, label, onChange }) {
           <TextField {...params} label={label} margin="normal" variant="outlined" />
         )}
       />
+     <Box mt={4}>
+            <Button variant="contained" color="primary" size="large">
+              Action
+            </Button>
+     </Box>
     </div>
+    
   );
 }

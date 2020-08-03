@@ -1,0 +1,36 @@
+type Tweet {
+    id: ID!
+    text: String! @search(by: [fulltext])
+    tags: [String!] @search(by: [regexp])
+    commentOn: [Tweet!]
+    comments: [Tweet!] @hasInverse(field: commentOn)
+    retweetOf: [Tweet!]
+    retweets: [Tweet!] @hasInverse(field: retweetOf)
+    likedBy: [User!]
+    createdAt: DateTime! @search(by: [hour])
+    createdBy: User!
+}
+
+type Notification {
+    id: ID!
+    from: User
+    action: String # LIKE, RETWEET, COMMENT, MENTION
+    about: Tweet
+#    Need this because we want to show latest notifications at top, so need to order by this
+    createdAt: DateTime!
+}
+
+type User {
+    id: ID!
+    name: String! @search(by: [regexp])
+    username: String! @id @search(by: [regexp])
+    info: String
+    location: String
+    notifications: [Notification!]
+    tweeted: [Tweet]
+    pinned: Tweet
+    followedUsers: [User]
+    followers: [User] @hasInverse(field: followedUsers)
+    followedTags: [String]
+    createdAt: DateTime!
+}

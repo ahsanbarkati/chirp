@@ -1,0 +1,30 @@
+query home($username: String!) {
+  getUser(username: $username) {
+    followedUsers {
+      tweeted {
+        text
+        mentions {
+          username
+        }
+        tags {
+          name
+        }
+        comments {
+          __typename
+        }
+        retweets {
+          __typename
+        }
+        likedBy {
+          __typename
+        }
+        createdAt
+        createdBy {
+          name
+          username
+          profilePic
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+query searchTweets( $tagName: String!) {
+  queryTweet {
+    text
+    mentions {
+      username
+    }
+    tags(filter: {name: {eq: $tagName}}) {
+      name
+    }
+    comments {
+      __typename
+    }
+    retweets {
+      __typename
+    }
+    likedBy {
+      __typename
+    }
+    createdAt
+    createdBy {
+      name
+      username
+      profilePic
+    }
+  }
+}

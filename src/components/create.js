@@ -18,8 +18,9 @@ export function Create({ data, label, onChange }) {
     const [addChirp, { dataa }] = useMutation(query);
 
    const handleClick = () => {
-       console.log('this is:', this);
-       addChirp({ variables: {
+
+      
+      addChirp({ variables: {
         "input": {
           "text": "hello world #hello @mcl",
           "tags": [

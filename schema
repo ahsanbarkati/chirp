@@ -1,7 +1,8 @@
 type Tweet {
     id: ID!
     text: String! @search(by: [fulltext])
-    tags: [String!] @search(by: [regexp])
+    mentions: [User!]
+    tags: [Tag!] @hasInverse(field: tweets)
     commentOn: [Tweet!]
     comments: [Tweet!] @hasInverse(field: commentOn)
     retweetOf: [Tweet!]
@@ -10,20 +11,25 @@ type Tweet {
     createdAt: DateTime! @search(by: [hour])
     createdBy: User!
 }
-
+type Tag {
+    name: String! @id @search(by: [regexp])
+    tweets: [Tweet!]
+    parent: Tag @hasInverse(field: child)
+    child: [Tag!]
+}
 type Notification {
     id: ID!
     from: User
     action: String # LIKE, RETWEET, COMMENT, MENTION
     about: Tweet
-#    Need this because we want to show latest notifications at top, so need to order by this
+#   Need this because we want to show latest notifications at top, so need to order by this
     createdAt: DateTime!
 }
-
 type User {
     id: ID!
     name: String! @search(by: [regexp])
     username: String! @id @search(by: [regexp])
+    profilePic: String
     info: String
     location: String
     notifications: [Notification!]

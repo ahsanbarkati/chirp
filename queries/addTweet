@@ -1,0 +1,5 @@
+mutation addTweet ($input: AddTweetInput!){
+    addTweet(input: [$input]) {
+      numUids
+    }
+}

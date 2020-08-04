@@ -1,0 +1,13 @@
+mutation updateUserProfile($id: ID!, $user: UserPatch){
+  updateUser(input: {
+    filter: {
+      id: [$id]
+    }
+    set: $user
+  }) {
+    numUids
+    user {
+      name
+    }
+  }
+}

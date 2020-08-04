@@ -1,0 +1,26 @@
+query searchTweets($text:String, $username: String!, $tagName: String!, $first: Int!, $offset: Int!) {
+  queryTweet(filter: {text: {anyoftext: $text}}, order: {desc: createdAt}, first: $first, offset: $offset) @cascade {
+    text
+    mentions(filter: {username: {eq: $username}}) {
+      username
+    }
+    tags(filter: {name: {eq: $tagName}}) {
+      name
+    }
+    comments {
+      __typename
+    }
+    retweets {
+      __typename
+    }
+    likedBy {
+      __typename
+    }
+    createdAt
+    createdBy {
+      name
+      username
+      profilePic
+    }
+  }
+}

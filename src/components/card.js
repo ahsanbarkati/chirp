@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function CenteredCard({name, data}) {
+export function CenteredCard({tweet}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -50,18 +50,18 @@ export function CenteredCard({name, data}) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={name}
-        subheader="14 September 2020"
+        title={tweet.createdBy.name}
+        subheader={tweet.createdAt}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {data}
+          {tweet.text}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-          <p>5</p>
+          <p>{tweet.likedBy.length}</p>
         </IconButton>
         
         <IconButton aria-label="share">

@@ -9,29 +9,42 @@ import { gql, useMutation } from '@apollo/client'
 export function Create({ data, label, onChange }) {
 
     const query = gql`
-    mutation {
-        addUser(input: [
-          { name: "Ahsan", username:"ash", info:"Engineer", location: "Sa", createdAt: "2020", email:"ash@dgraph"},
-        ]) {
-          user {
-            name
-            username
-            info
+        mutation addTweet ($input: AddTweetInput!){
+          addTweet(input: [$input]) {
+            numUids
           }
-        }
       }
         `;
     const [addChirp, { dataa }] = useMutation(query);
 
    const handleClick = () => {
        console.log('this is:', this);
-       addChirp({ variables: { } });
+       addChirp({ variables: {
+        "input": {
+          "text": "hello world #hello @mcl",
+          "tags": [
+            {
+              "name": "hello"
+            }
+          ],
+          "mentions": [
+            {
+              "username": "mcl"
+            }
+          ],
+          "createdBy": {
+            "username": "ash"
+          },
+          "createdAt": "2020-08-03"
+        }
+      } });
        console.log(dataa)
     }
 
   return (
-    <div style={{ width: 500 }}>
+    <div style={{ width: 1000 }}>
       <Autocomplete
+        style={{ width: 600 , display: "inline-block" }}
         onChange={onChange}
         id="free-solo-demo"
         freeSolo
@@ -41,7 +54,7 @@ export function Create({ data, label, onChange }) {
         )}
         
       />
-    <Button variant="contained" color="primary" size="large" onClick={handleClick}>
+    <Button style={{ left:20 , top:30, width: 200, display:"inline-block" }} variant="contained" color="primary" size="large" onClick={handleClick}>
         Chirp
     </Button>
 

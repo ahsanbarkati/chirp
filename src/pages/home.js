@@ -21,7 +21,7 @@ const Home = () => {
   const history = useHistory();
 
   const handleClick = (event, value) => {
-    history.push(`/types/${value}`)
+    console.log("Search called")
   }
 
   return <>

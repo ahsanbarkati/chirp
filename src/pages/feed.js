@@ -10,12 +10,32 @@ import { Search } from "../components/search";
 import { Create } from "../components/create";
 
 const query = gql`
-  query {
-    queryUser {
+  query searchTweets {
+    queryTweet {
+    text
+    mentions {
+      username
+    }
+    tags {
       name
-      info
+    }
+    comments {
+      __typename
+    }
+    retweets {
+      __typename
+    }
+    likedBy {
+      __typename
+    }
+    createdAt
+    createdBy {
+      name
+      username
+      profilePic
     }
   }
+}
 `;
 
 const Home = () => {
@@ -30,7 +50,7 @@ const Home = () => {
     <Navigbar title="Feed" color="primary" />
     <Content>
       {/* {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null} */}
-      {!loading && !error ? <Create data={data.queryUser.name || []} label="Chirp now" onChange={handleClick} />: null}
+      {!loading && !error ? <Create data={data.queryTweet.text || []} label="Chirp now" onChange={handleClick} />: null}
       <TypesList loading={loading} error={error} data={data} />
     </Content>
   </>
@@ -44,9 +64,9 @@ function TypesList({loading, error, data}) {
     </Typography>
   }
   return <Grid container spacing={3}>
-    {data.queryUser.map(type =>
-      <Grid item xs={12} key={type.name}>
-        <CenteredCard name={type.name} data={type.info}></CenteredCard>
+    {data.queryTweet.map(type =>
+      <Grid item xs={12} key={type.text}>
+        <CenteredCard tweet={type}></CenteredCard>
       </Grid>
     )}
   </Grid>;

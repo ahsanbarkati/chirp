@@ -3,9 +3,9 @@ type Tweet {
     text: String! @search(by: [fulltext])
     mentions: [User!]
     tags: [Tag!] @hasInverse(field: tweets)
-    commentOn: [Tweet!]
+    commentOn: Tweet!
     comments: [Tweet!] @hasInverse(field: commentOn)
-    retweetOf: [Tweet!]
+    retweetOf: Tweet!
     retweets: [Tweet!] @hasInverse(field: retweetOf)
     likedBy: [User!]
     createdAt: DateTime! @search(by: [hour])

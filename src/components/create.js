@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import {gql, useMutation} from '@apollo/client'
 import {Grid} from "@material-ui/core";
+import {auth0Config} from "../App";
 
 const query = gql`
 mutation addTweet ($input: AddTweetInput!){
@@ -12,34 +13,42 @@ mutation addTweet ($input: AddTweetInput!){
     }
 }`;
 
+function myFunction(tweet) {
+    var res = tweet.split(" ");
+    var mentions = []
+    var tags = []
+    for (var i = 0; i < res.length; i++) {
+        if (res[i].charAt(0) === '#') {
+            tags.push({"name": res[i]})
+        }
+        if (res[i].charAt(0) === '@') {
+            mentions.push({"email": res[i].substring(1)+"@dgraph.io"})
+        }
+    }
+    return {tags, mentions}
+}
+
 export function Create({data, label, onChange}) {
     const [addChirp, {dataa}] = useMutation(query, {onError: error => console.log(error)});
     const [chirpText, setChirpText] = useState("");
 
     const handleClick = () => {
         console.log(data)
+        const {tags, mentions} = myFunction(chirpText)
         addChirp({
             variables: {
                 "input": {
                     "text": chirpText,
-                    "tags": [
-                        {
-                            "name": "hello"
-                        }
-                    ],
-                    // "mentions": [
-                    //     // {
-                    //     //     "username": "mcl"
-                    //     // }
-                    // ],
+                    "tags": tags,
+                    "mentions": mentions,
                     "createdBy": {
-                        "email": data,
+                        "email": auth0Config.user.email,
                     },
-                    "createdAt": "2020-08-03"
+                    "createdAt": new Date().toISOString()
                 }
             }
         });
-        console.log(dataa)
+        window.location.reload()
     }
 
     return (

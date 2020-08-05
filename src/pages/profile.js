@@ -13,6 +13,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import Link from "@material-ui/core/Link";
 import {CenteredCard} from "../components/card";
 import Divider from "@material-ui/core/Divider";
+import {Followers} from '../components/followers';
 
 const profileQuery = gql`
 query searchUsers($username: String, $myEmail: String) {
@@ -80,7 +81,8 @@ query searchUsers($username: String, $myEmail: String) {
       __typename
     }
     followers {
-      __typename
+      name
+      profilePic
     }
     createdAt
   }
@@ -94,7 +96,7 @@ const follow = (event, value) => {
     console.log("follow clicked")
 }
 
-const Profile = ({match}) => {
+const Profile = ({match, navigation}) => {
     var username = match.params.username;
     if (username === undefined || username === "") {
         username = auth0Config.user.nickname

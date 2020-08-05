@@ -63,9 +63,17 @@ const Feed = () => {
     return <>
         <Navigbar title="Feed" color="primary"/>
         <Content>
+        <Grid
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            style={{padding: "0 20%"}}
+        >
             {/* {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null} */}
             {!loading && !error ? <Create data={email} label="Chirp now" onChange={handleClick}/> : null}
             <TypesList loading={loading} error={error} data={data}/>
+        </Grid>
         </Content>
     </>
 }

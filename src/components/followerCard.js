@@ -5,7 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import { red } from '@material-ui/core/colors';
 import {Grid} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,10 +39,7 @@ export function FollowerCard({user}) {
         style={{backgroundColor: "white", height: 80, padding: 16}}
       >
           <Avatar alt="profile pic" src={user?.profilePic} style={{ border: "solid white 4px", height: 50, width: 50}}/>
-          <span>{user?.name}</span>
-          <Grid item padding={20}>
-            <Button variant="outlined" color="primary">Follow</Button>
-          </Grid>
+          <Link href={"/profile/" + user?.username} variant={"body1"}>{user.name}</Link>
       </Grid>
     </Card>
   );

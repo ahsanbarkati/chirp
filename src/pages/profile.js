@@ -101,7 +101,8 @@ const Profile = ({match}) => {
     //     "followers": [],
     //     "createdAt": "2020-08-05T09:09:39.36Z"
     // }
-
+    // const hidden = (user.email === auth0Config.user.email)
+    const hidden = false
     return (
 
         <Grid
@@ -134,7 +135,7 @@ const Profile = ({match}) => {
                     alignItems="center"
                     style={{backgroundColor: "white", height: 100, padding: 16}}
                 >
-                    <Button variant="outlined" color="primary">Follow</Button>
+                    {hidden ? <span></span> : <Button variant="outlined" color="primary">Follow</Button> }
                 </Grid>
                 <Grid
                     container
@@ -152,7 +153,7 @@ const Profile = ({match}) => {
                         alignItems="center"
                     >
                         <DateRangeIcon></DateRangeIcon>
-                        <Typography variant={"caption"} component={"span"}>{user.createdAt}</Typography>
+                        <Typography variant={"caption"} component={"span"}>{new Date(user.createdAt).toDateString()}</Typography>
                     </Grid>
                     <Grid
                         container

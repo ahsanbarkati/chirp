@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Link from "@material-ui/core/Link";
+import {Followers} from '../components/followers';
 
 const query = gql`
 query searchUsers($username: String) {
@@ -49,7 +50,8 @@ query searchUsers($username: String) {
       __typename
     }
     followers {
-      __typename
+      name
+      profilePic
     }
     createdAt
   }
@@ -89,6 +91,15 @@ const Profile = ({match}) => {
     }
 
     const user = data.queryUser[0]
+    console.log("user: ", user)
+
+    {user.followers.map(follower =>
+      console.log(follower.name)
+      // <Grid item xs={12} key={follower.name}>
+      // <FollowerCard follower={follower}></FollowerCard>
+      // </Grid>
+      )}
+
     // const user = {
     //     "name": "Abhimanyu Singh Gaur",
     //     "username": "abhimanyu",
@@ -101,8 +112,7 @@ const Profile = ({match}) => {
     //     "followers": [],
     //     "createdAt": "2020-08-05T09:09:39.36Z"
     // }
-    // const hidden = (user.email === auth0Config.user.email)
-    const hidden = false
+
     return (
 
         <Grid
@@ -135,7 +145,7 @@ const Profile = ({match}) => {
                     alignItems="center"
                     style={{backgroundColor: "white", height: 100, padding: 16}}
                 >
-                    {hidden ? <span></span> : <Button variant="outlined" color="primary">Follow</Button> }
+                    <Button variant="outlined" color="primary">Follow</Button>
                 </Grid>
                 <Grid
                     container
@@ -153,7 +163,7 @@ const Profile = ({match}) => {
                         alignItems="center"
                     >
                         <DateRangeIcon></DateRangeIcon>
-                        <Typography variant={"caption"} component={"span"}>{new Date(user.createdAt).toDateString()}</Typography>
+                        <Typography variant={"caption"} component={"span"}>{user.createdAt}</Typography>
                     </Grid>
                     <Grid
                         container
@@ -165,9 +175,17 @@ const Profile = ({match}) => {
                         <Typography>&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
                         <Link href={"/followers"} variant={"body1"}>{user.followers.length} Followers</Link>
                     </Grid>
+                    <Followers user={user} />
                 </Grid>
             </Grid>
         </Grid>
+
+            
+
+
+
+
+        
     );
 };
 

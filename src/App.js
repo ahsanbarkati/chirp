@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import SearchIcon from '@material-ui/icons/Search';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 import {useAuth0} from "@auth0/auth0-react";
 
@@ -24,6 +25,7 @@ import {Sidebar, SidebarItem} from './components/sidebar';
 import {Followers} from "./components/followers";
 import {Following} from "./components/following";
 import {Searcher} from "./pages/searcher";
+import {SearcherPeople} from "./pages/searcherpeople";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +59,9 @@ function App() {
             <CssBaseline/>
             <Sidebar>
                 <SidebarItem label="Feed" icon={HomeIcon} link="/feed"/>
-                <SidebarItem label="Profile" icon={PeopleIcon} link="/profile"/>
+                <SidebarItem label="Profile" icon={AccountBoxIcon} link="/profile"/>
                 <SidebarItem label="Search" icon={SearchIcon} link="/search"/>
+                <SidebarItem label="Explore People" icon={PeopleIcon} link="/searchpeople"/>
             </Sidebar>
             <Router history={history}>
                 <Suspense fallback={<div/>}>
@@ -72,6 +75,7 @@ function App() {
                         <Route path="/followers/:username" component={Followers}/>
                         <Route path="/following/:username" component={Following}/>
                         <Route path="/search" component={Searcher}/>
+                        <Route path="/searchpeople" component={SearcherPeople}/>
 
 
                         <Route component={NotFound}/>

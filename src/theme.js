@@ -96,7 +96,6 @@ const theme = {
   },
   button: {
     background: "yellow",
-
   }
 }
 

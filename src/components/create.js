@@ -1,9 +1,7 @@
 /* eslint-disable no-use-before-define */
 import React, {useState} from 'react';
 import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
 import {gql, useMutation} from '@apollo/client'
 import {Grid} from "@material-ui/core";
 

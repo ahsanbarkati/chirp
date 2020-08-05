@@ -11,9 +11,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Link from "@material-ui/core/Link";
+import {CenteredCard} from "../components/card";
+import Divider from "@material-ui/core/Divider";
 
-const query = gql`
-query searchUsers($username: String) {
+const profileQuery = gql`
+query searchUsers($username: String, $myEmail: String) {
+  alreadyFollowed: queryUser(filter: {email: {eq: $username}}, first: 1) {
+    followers(filter: {email: {eq: $myEmail}}) {
+      __typename
+    }
+  }
   queryUser(filter: {username: {eq: $username}}, first: 1) {
     name
     username
@@ -21,6 +28,30 @@ query searchUsers($username: String) {
     profilePic
     info
     location
+    tweeted {
+        text
+        mentions {
+          username
+        }
+        tags {
+          name
+        }
+        comments {
+          __typename
+        }
+        retweets {
+          __typename
+        }
+        likedBy {
+          __typename
+        }
+        createdAt
+        createdBy {
+          name
+          username
+          profilePic
+        }
+    }
     pinned {
       text
       mentions {
@@ -56,13 +87,21 @@ query searchUsers($username: String) {
 }
 `;
 
+const unfollow = (event, value) => {
+    console.log("unfollow clicked")
+}
+const follow = (event, value) => {
+    console.log("follow clicked")
+}
+
 const Profile = ({match}) => {
     var username = match.params.username;
     if (username === undefined || username === "") {
         username = auth0Config.user.nickname
     }
-    const {loading, error, data} = useQuery(query, {
-      variables: {username}
+    const myEmail = auth0Config.user.email
+    const {loading, error, data} = useQuery(profileQuery, {
+        variables: {username, myEmail}
     });
 
     if (auth0Config.isLoading || loading) {
@@ -78,17 +117,19 @@ const Profile = ({match}) => {
     }
 
     if (error !== undefined) {
-      return (
-          <div>{error.toString()}</div>
-      )
+        return (
+            <div>{error.toString()}</div>
+        )
     }
     if (data == null) {
-      return (
-          <div>Something went wrong! Unable to fetch user data.</div>
-      )
+        return (
+            <div>Something went wrong! Unable to fetch user data.</div>
+        )
     }
 
     const user = data.queryUser[0]
+    const isFollowed = (data.alreadyFollowed[0]?.followers?.length > 0)
+    // const hidden = (user.email === auth0Config.user.email)
     // const user = {
     //     "name": "Abhimanyu Singh Gaur",
     //     "username": "abhimanyu",
@@ -101,8 +142,9 @@ const Profile = ({match}) => {
     //     "followers": [],
     //     "createdAt": "2020-08-05T09:09:39.36Z"
     // }
-    // const hidden = (user.email === auth0Config.user.email)
+    // const isFollowed = true
     const hidden = false
+
     return (
 
         <Grid
@@ -135,7 +177,9 @@ const Profile = ({match}) => {
                     alignItems="center"
                     style={{backgroundColor: "white", height: 100, padding: 16}}
                 >
-                    {hidden ? <span></span> : <Button variant="outlined" color="primary">Follow</Button> }
+                    {hidden ? <span></span> : isFollowed ?
+                        <Button variant="outlined" color="primary" onClick={unfollow}>Unfollow</Button> :
+                        <Button variant="outlined" color="primary" onClick={follow}>Follow</Button>}
                 </Grid>
                 <Grid
                     container
@@ -153,7 +197,8 @@ const Profile = ({match}) => {
                         alignItems="center"
                     >
                         <DateRangeIcon></DateRangeIcon>
-                        <Typography variant={"caption"} component={"span"}>{new Date(user.createdAt).toDateString()}</Typography>
+                        <Typography variant={"caption"}
+                                    component={"span"}>{new Date(user.createdAt).toDateString()}</Typography>
                     </Grid>
                     <Grid
                         container
@@ -165,6 +210,19 @@ const Profile = ({match}) => {
                         <Typography>&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
                         <Link href={"/followers"} variant={"body1"}>{user.followers.length} Followers</Link>
                     </Grid>
+                </Grid>
+                <div style={{border: "solid grey 2px", width: "100%"}} ></div>
+
+                <Grid
+                    container
+                    direction="column"
+                    justify="flex-start"
+                    alignItems="flex-start"
+                    xs={12}
+                >
+                    {user.tweeted.map(tweet =>
+                        <CenteredCard tweet={tweet}></CenteredCard>
+                    )}
                 </Grid>
             </Grid>
         </Grid>

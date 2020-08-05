@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function CenteredCard({tweet}) {
+  console.log("tweet")
+  console.log(tweet)
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 

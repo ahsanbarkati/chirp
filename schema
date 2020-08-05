@@ -9,7 +9,7 @@ type Tweet {
     retweets: [Tweet!] @hasInverse(field: retweetOf)
     likedBy: [User!]
     createdAt: DateTime! @search(by: [hour])
-    createdBy: User!
+    createdBy: User! @hasInverse(field: tweeted)
 }
 type Tag {
     name: String! @id @search(by: [regexp])
@@ -28,7 +28,7 @@ type Notification {
 type User {
     id: ID!
     name: String! @search(by: [regexp])
-    username: String @search(by: [regexp])
+    username: String @search(by: [exact, regexp])
     email: String! @id
     profilePic: String
     info: String

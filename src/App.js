@@ -69,6 +69,7 @@ function App() {
                         <Route path="/feed" exact={true} component={Feed}/>
                         <Route path="/types/:typeId" exact={true} component={Types}/>
                         <Route path="/form" exact={true} component={Form}/>
+                        <Route path="/profile/:username" component={Profile}/>
                         <Route path="/profile" component={Profile}/>
 
 

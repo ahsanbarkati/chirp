@@ -43,50 +43,55 @@ query home($email: String!) {
 `;
 
 const Feed = () => {
-  const email = auth0Config.user.email
-  console.log("email: " + email)
-  const { loading, error, data } = useQuery(query, {
-    variables: {email}
-  });
-  const history = useHistory();
+    const email = auth0Config.user.email
+    console.log("email: " + email)
+    const {loading, error, data} = useQuery(query, {
+        variables: {email}
+    });
+    const history = useHistory();
 
-  const handleClick = (event, value) => {
-    history.push(`/types/${value}`)
-  }
+    const handleClick = (event, value) => {
+        history.push(`/types/${value}`)
+    }
 
-  if(loading){
-    return(
-        <div>Loading</div>
-    );
-  }
+    if (loading) {
+        return (
+            <div>Loading</div>
+        );
+    }
 
-  return <>
-    <Navigbar title="Feed" color="primary" />
-    <Content>
-      {/* {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null} */}
-      {!loading && !error ? <Create data={email} label="Chirp now" onChange={handleClick} />: null}
-      <TypesList loading={loading} error={error} data={data} />
-    </Content>
-  </>
+    return <>
+        <Navigbar title="Feed" color="primary"/>
+        <Content>
+            {/* {!loading && !error ? <Search data={data.queryUser.name || []} label="Search your type here" onChange={handleClick} />: null} */}
+            {!loading && !error ? <Create data={email} label="Chirp now" onChange={handleClick}/> : null}
+            <TypesList loading={loading} error={error} data={data}/>
+        </Content>
+    </>
 }
 
 function TypesList({loading, error, data}) {
-  if (loading) { return <Typography>Loading...</Typography> }
-  if (error) {
-    return <Typography>
-      {/*Something Went Wrong. Did you remember to set the REACT_APP_GRAPHQL_ENDPOINT environment variable?*/}
-      {error.toString()}
-    </Typography>
-  }
-  return <Grid container spacing={3}>
-    {data.getUser?.followedUsers?.map(user => {
-      user.tweeted.map(tweet =>
-          <Grid item xs={12} key={tweet.text}>
+    console.log("loading: " + loading)
+    console.log("error: " + error)
+    console.log("data: ")
+    console.log(data)
+    if (loading) {
+        return <Typography>Loading...</Typography>
+    }
+    if (error) {
+        return <Typography>
+            {/*Something Went Wrong. Did you remember to set the REACT_APP_GRAPHQL_ENDPOINT environment variable?*/}
+            {error.toString()}
+        </Typography>
+    }
+    return <Grid container spacing={3}>
+        {data.getUser?.followedUsers?.map(user =>
+            user.tweeted.map(tweet =>
+            <Grid item xs={12} key={tweet.text}>
             <CenteredCard tweet={tweet}></CenteredCard>
-          </Grid>)
-        }
-    )}
-  </Grid>;
+            </Grid>)
+            )}
+    </Grid>;
 }
 
 export default Feed;

@@ -27,7 +27,7 @@ type Notification {
 }
 type User {
     id: ID!
-    name: String! @search(by: [regexp])
+    name: String! @search(by: [regexp, fulltext])
     username: String @search(by: [exact, regexp])
     email: String! @id
     profilePic: String

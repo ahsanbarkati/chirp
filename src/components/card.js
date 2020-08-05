@@ -52,7 +52,7 @@ export function CenteredCard({tweet}) {
                     justify="flex-start"
                     alignItems="flex-start"
                 >
-                    <Avatar aria-label="recipe" className={classes.avatar} src={tweet.createdBy.profilePic}
+                    <Avatar aria-label="recipe" className={classes.avatar} src={tweet?.createdBy?.profilePic}
                             style={{width: 40}}/>
                 </Grid>
                 <Grid
@@ -69,10 +69,10 @@ export function CenteredCard({tweet}) {
                         alignItems="center"
                     >
                         <Typography variant={"h6"} component={"h6"}
-                                    style={{fontWeight: "bold"}}>{tweet.createdBy.name}</Typography>
+                                    style={{fontWeight: "bold"}}>{tweet?.createdBy?.name}</Typography>
                         <span>&nbsp;&nbsp;&nbsp;</span>
                         <Typography variant={"caption"}
-                                    component={"span"}>@{tweet.createdBy.username} . {new Date(tweet.createdAt).toDateString()}</Typography>
+                                    component={"span"}>@{tweet?.createdBy?.username} . {new Date(tweet?.createdAt).toDateString()}</Typography>
                     </Grid>
                     <Grid
                         container
@@ -81,7 +81,7 @@ export function CenteredCard({tweet}) {
                         alignItems="flex-start"
                         style={{marginTop: 8, marginBottom: 8}}
                     >
-                        <Typography variant={"body1"} component={"span"}>{tweet.text}</Typography>
+                        <Typography variant={"body1"} component={"span"}>{tweet?.text}</Typography>
                     </Grid>
                     <Grid
                         container
@@ -89,9 +89,9 @@ export function CenteredCard({tweet}) {
                         justify="flex-start"
                         alignItems="flex-start"
                     >
-                        <IconButton><ChatBubbleOutlineIcon/>&nbsp;&nbsp;{tweet.comments.length}</IconButton>
-                        <IconButton><SwapHorizIcon/>&nbsp;&nbsp;{tweet.retweets.length}</IconButton>
-                        <IconButton><FavoriteBorderIcon/>&nbsp;&nbsp;{tweet.likedBy.length}</IconButton>
+                        <IconButton><ChatBubbleOutlineIcon/>&nbsp;&nbsp;{tweet?.comments?.length}</IconButton>
+                        <IconButton><SwapHorizIcon/>&nbsp;&nbsp;{tweet?.retweets?.length}</IconButton>
+                        <IconButton><FavoriteBorderIcon/>&nbsp;&nbsp;{tweet?.likedBy?.length}</IconButton>
                     </Grid>
                 </Grid>
             </Grid>

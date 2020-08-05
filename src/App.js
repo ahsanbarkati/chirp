@@ -22,6 +22,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import {Sidebar, SidebarItem} from './components/sidebar';
 import {Followers} from "./components/followers";
+import {Searcher} from "./pages/searcher";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,9 +54,9 @@ function App() {
         <div className={classes.root}>
             <CssBaseline/>
             <Sidebar>
-                <SidebarItem label="Home" icon={HomeIcon} link="/"/>
                 <SidebarItem label="Feed" icon={HomeIcon} link="/feed"/>
                 <SidebarItem label="Profile" icon={PeopleIcon} link="/profile"/>
+                <SidebarItem label="Search" icon={HomeIcon} link="/search"/>
                 {/* <SidebarItem label="Form Example" icon={PeopleIcon} link="/form"/> */}
                 {/* <SidebarItem label="Settings" icon={SettingsIcon}>
         
@@ -72,6 +73,7 @@ function App() {
                         <Route path="/form" exact={true} component={Form}/>
                         <Route path="/profile/:username" component={Profile}/>
                         <Route path="/profile" component={Profile}/>
+                        <Route path="/search" component={Searcher}/>
                         <Route path="/followers" component={Followers}/>
 
 

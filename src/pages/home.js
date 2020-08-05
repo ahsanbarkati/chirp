@@ -1,12 +1,11 @@
 import React from "react";
-import {List, ListItem, Typography, Grid} from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
-import { gql, useQuery } from '@apollo/client'
+import {Grid, Typography} from '@material-ui/core';
+import {Link, useHistory} from 'react-router-dom';
+import {gql, useQuery} from '@apollo/client'
 
 import Content from '../components/content';
-import { Navigbar, NavbarItem } from '../components/navbar';
-import { CenteredCard } from '../components/card';
-import { Search } from "../components/search";
+import {Navigbar} from '../components/navbar';
+import {CenteredCard} from '../components/card';
 
 const query = gql`{
   __schema {
@@ -28,20 +27,8 @@ const Home = () => {
     <Navigbar title="Home" color="primary" />
     <Content>
       <Typography>
-        This is the Slash GraphQL Starter App. If you are looking for where to get started, you
-        might want to check out the following files:
+        This is Chirp
       </Typography>
-      <List>
-        <ListItem><i>src/App.js</i></ListItem>
-        <ListItem><i>src/pages/home.js</i></ListItem>
-        <ListItem><i>src/pages/type.js</i></ListItem>
-      </List>
-      <Typography paragraph>
-        Below, you should see a list of types in your schema. The columns will auto adjust as per
-        the screen size. So take a look at how we use the <i>{"<Grid>"}</i> component
-      </Typography>
-      {!loading && !error ? <Search data={data.__schema.types || []} label="Search your type here" onChange={handleClick} />: null}
-      <TypesList loading={loading} error={error} data={data} />
     </Content>
   </>
 }

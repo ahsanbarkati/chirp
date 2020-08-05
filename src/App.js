@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {Router, Route, Switch} from "react-router-dom";
+import {Route, Router, Switch} from "react-router-dom";
 
 import history from "./utils/history";
 import Home from "./pages/home";
@@ -12,7 +12,7 @@ import NotFound from "./pages/not-found";
 import {makeStyles} from "@material-ui/core/styles";
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import SettingsIcon from '@material-ui/icons/Settings';
+import SearchIcon from '@material-ui/icons/Search';
 
 import {useAuth0} from "@auth0/auth0-react";
 
@@ -58,7 +58,7 @@ function App() {
             <Sidebar>
                 <SidebarItem label="Feed" icon={HomeIcon} link="/feed"/>
                 <SidebarItem label="Profile" icon={PeopleIcon} link="/profile"/>
-                <SidebarItem label="Search" icon={HomeIcon} link="/search"/>
+                <SidebarItem label="Search" icon={SearchIcon} link="/search"/>
             </Sidebar>
             <Router history={history}>
                 <Suspense fallback={<div/>}>

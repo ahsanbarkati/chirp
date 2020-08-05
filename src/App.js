@@ -23,6 +23,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import {Sidebar, SidebarItem} from './components/sidebar';
 import {Followers} from "./components/followers";
 import {Following} from "./components/following";
+import {Searcher} from "./pages/searcher";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,23 +48,17 @@ function App() {
 
     if (isLoading) {
         return (
-            <div>Loading</div>
-        );
+            <div> Loading </div>
+        )
     }
 
     return (
         <div className={classes.root}>
             <CssBaseline/>
             <Sidebar>
-                <SidebarItem label="Home" icon={HomeIcon} link="/"/>
                 <SidebarItem label="Feed" icon={HomeIcon} link="/feed"/>
                 <SidebarItem label="Profile" icon={PeopleIcon} link="/profile"/>
-                {/* <SidebarItem label="Form Example" icon={PeopleIcon} link="/form"/> */}
-                {/* <SidebarItem label="Settings" icon={SettingsIcon}>
-        
-          <SidebarItem label="Start" link="/not-implemented" />
-          <SidebarItem label="Here" link="/not-implemented" />
-        </SidebarItem> */}
+                <SidebarItem label="Search" icon={HomeIcon} link="/search"/>
             </Sidebar>
             <Router history={history}>
                 <Suspense fallback={<div/>}>
@@ -75,6 +71,7 @@ function App() {
                         <Route path="/profile" component={Profile}/>
                         <Route path="/followers/:username" component={Followers}/>
                         <Route path="/following/:username" component={Following}/>
+                        <Route path="/search" component={Searcher}/>
 
 
                         <Route component={NotFound}/>
@@ -82,7 +79,8 @@ function App() {
                 </Suspense>
             </Router>
         </div>
-    )
+    );
 }
 
 export default App;
+

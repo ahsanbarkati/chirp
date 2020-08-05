@@ -50,18 +50,18 @@ export function CenteredCard({tweet}) {
             <MoreVertIcon />
           </IconButton>
         }
-        title={tweet.createdBy.name}
-        subheader={tweet.createdAt}
+        title={tweet?.createdBy.name}
+        subheader={tweet?.createdAt}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {tweet.text}
+          {tweet?.text}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
-          <p>{tweet.likedBy.length}</p>
+          <p>{tweet?.likedBy.length}</p>
         </IconButton>
         
         <IconButton aria-label="share">

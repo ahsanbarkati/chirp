@@ -14,7 +14,7 @@ import SettingsApplicationsIcon from "@material-ui/icons/SettingsApplications";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/images/logo.jpg";
 import useStyles from "./sidebar.style"
 
 export const SidebarItem = ({ key, label, icon: Icon, open, className, onClick, link, children = [] }) => {

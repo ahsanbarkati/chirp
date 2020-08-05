@@ -1,8 +1,4 @@
 import React from "react";
-import {Container, Row, Col} from "react-bootstrap";
-import Highlight from "../components/highlight";
-import {Navigbar, NavbarItem} from '../components/navbar';
-import {useAuth0} from "@auth0/auth0-react";
 import {auth0Config} from "../App";
 import {gql, useQuery} from "@apollo/client";
 import {Grid} from "@material-ui/core";
@@ -12,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import Link from "@material-ui/core/Link";
 import {CenteredCard} from "../components/card";
-import Divider from "@material-ui/core/Divider";
-import {Followers} from '../components/followers';
 
 const profileQuery = gql`
 query searchUsers($username: String, $myEmail: String) {
@@ -96,7 +90,7 @@ const follow = (event, value) => {
     console.log("follow clicked")
 }
 
-const Profile = ({match, navigation}) => {
+const Profile = ({match}) => {
     var username = match.params.username;
     if (username === undefined || username === "") {
         username = auth0Config.user.nickname
@@ -208,9 +202,9 @@ const Profile = ({match, navigation}) => {
                         justify="flex-start"
                         alignItems="center"
                     >
-                        <Link href={"/following"} variant={"body1"}>{user.followedUsers.length} Following</Link>
+                        <Link href={"/following/"+user.username} variant={"body1"}>{user.followedUsers.length} Following</Link>
                         <Typography>&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
-                        <Link href={"/followers"} variant={"body1"}>{user.followers.length} Followers</Link>
+                        <Link href={"/followers/"+user.username} variant={"body1"}>{user.followers.length} Followers</Link>
                     </Grid>
                 </Grid>
                 <div style={{border: "solid grey 2px", width: "100%"}} ></div>

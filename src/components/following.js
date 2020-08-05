@@ -13,7 +13,7 @@ query searchUsers($username: String) {
     tweeted {
         __typename
     }
-    followers {
+    followedUsers {
       name
       username
       info
@@ -23,7 +23,7 @@ query searchUsers($username: String) {
 }
 `;
 
-export function Followers({match}) {
+export function Following({match}) {
     var username = match.params.username;
     if (username === undefined || username === "") {
         username = auth0Config.user.nickname
@@ -74,9 +74,9 @@ export function Followers({match}) {
             >
                 <Typography variant={"h5"} component={"h5"} style={{fontWeight: "bold"}}>{user.name}</Typography>
                 <Typography variant={"caption"} component={"span"}>@{user.username}</Typography>
-                <Typography variant={"h4"} component={"h4"}>Followers</Typography>
+                <Typography variant={"h4"} component={"h4"}>Following</Typography>
             </Grid>
-            {user.followers.map(user =>
+            {user.followedUsers.map(user =>
                 <FollowerCard user={user}></FollowerCard>
             )}
         </Grid>

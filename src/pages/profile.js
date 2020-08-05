@@ -131,7 +131,7 @@ const Profile = ({match, navigation}) => {
 
     const user = data.queryUser[0]
     const isFollowed = (data.alreadyFollowed[0]?.followers?.length > 0)
-    // const hidden = (user.email === auth0Config.user.email)
+    const hidden = (user.email === auth0Config.user.email)
     // const user = {
     //     "name": "Abhimanyu Singh Gaur",
     //     "username": "abhimanyu",
@@ -145,7 +145,7 @@ const Profile = ({match, navigation}) => {
     //     "createdAt": "2020-08-05T09:09:39.36Z"
     // }
     // const isFollowed = true
-    const hidden = false
+    // const hidden = false
 
     return (
 

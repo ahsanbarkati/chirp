@@ -9,8 +9,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 1045,
-    width: 600
+    maxWidth: 1000
   },
   media: {
     height: 0,
@@ -41,7 +40,9 @@ export function FollowerCard({user}) {
       >
           <Avatar alt="profile pic" src={user?.profilePic} style={{ border: "solid white 4px", height: 50, width: 50}}/>
           <span>{user?.name}</span>
-          <Button variant="outlined" color="primary">Follow</Button>
+          <Grid item padding={20}>
+            <Button variant="outlined" color="primary">Follow</Button>
+          </Grid>
       </Grid>
     </Card>
   );

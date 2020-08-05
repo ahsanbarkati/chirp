@@ -175,7 +175,7 @@ const Profile = ({match}) => {
                         <Typography>&nbsp;&nbsp;&nbsp;&nbsp;</Typography>
                         <Link href={"/followers"} variant={"body1"}>{user.followers.length} Followers</Link>
                     </Grid>
-                    <Followers user={user} />
+                    <div style={{width: "100%"}}><Followers user={user} /></div>
                 </Grid>
             </Grid>
         </Grid>
